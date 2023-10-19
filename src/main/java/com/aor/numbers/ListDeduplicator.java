@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class ListDeduplicator implements GenericListDeduplicator{
 
-    public List<Integer> deduplicate(List<Integer> list) {
-        ListSorter listSorter = new ListSorter();
-        List<Integer> sorted = listSorter.sort(list);
+    public List<Integer> deduplicate(List<Integer> list, GenericSorter genericsorter) {
+
+        List<Integer> sorted = genericsorter.sort(list);
         List<Integer> unique = new ArrayList<>();
 
         Integer last = null;

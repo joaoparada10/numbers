@@ -53,7 +53,7 @@ public class ListAggregatorTest {
         class DistinctStub implements GenericListDeduplicator{
 
             @Override
-            public List<Integer> deduplicate(List<Integer> list) {
+            public List<Integer> deduplicate(List<Integer> list, GenericSorter genericsorter) {
                 return Arrays.asList(1,2,4);
             }
 
@@ -61,7 +61,7 @@ public class ListAggregatorTest {
         GenericListDeduplicator listdeduplicator = new DistinctStub();
         List<Integer> list2 = Arrays.asList(1,2,4,2);
         ListAggregator aggregator = new ListAggregator();
-        int distinct = aggregator.distinct(list2, listdeduplicator);
+        int distinct = aggregator.distinct(list2, listdeduplicator, null );
 
         Assertions.assertEquals(3, distinct);
     }
@@ -71,16 +71,14 @@ public class ListAggregatorTest {
         class DistinctStub implements GenericListDeduplicator{
 
             @Override
-            public List<Integer> deduplicate(List<Integer> list) {
+            public List<Integer> deduplicate(List<Integer> list, GenericSorter genericsorter) {
                 return Arrays.asList(1,2,4,5);
             }
 
         }
-
-
         DistinctStub listdeduplicator = new DistinctStub();
         ListAggregator aggregator = new ListAggregator();
-        int distinct = aggregator.distinct(list, listdeduplicator);
+        int distinct = aggregator.distinct(list, listdeduplicator, null);
 
         Assertions.assertEquals(4, distinct);
     }
