@@ -47,11 +47,40 @@ public class ListAggregatorTest {
         Assertions.assertEquals(1, min);
     }
 
+
+    @Test
+    public void distinct_bug_8726(){
+        class DistinctStub implements GenericListDeduplicator{
+
+            @Override
+            public List<Integer> deduplicate(List<Integer> list) {
+                return Arrays.asList(1,2,4);
+            }
+
+        }
+        GenericListDeduplicator listdeduplicator = new DistinctStub();
+        List<Integer> list2 = Arrays.asList(1,2,4,2);
+        ListAggregator aggregator = new ListAggregator();
+        int distinct = aggregator.distinct(list2, listdeduplicator);
+
+        Assertions.assertEquals(3, distinct);
+    }
+
     @Test
     public void distinct() {
+        class DistinctStub implements GenericListDeduplicator{
 
+            @Override
+            public List<Integer> deduplicate(List<Integer> list) {
+                return Arrays.asList(1,2,4,5);
+            }
+
+        }
+
+
+        DistinctStub listdeduplicator = new DistinctStub();
         ListAggregator aggregator = new ListAggregator();
-        int distinct = aggregator.distinct(list);
+        int distinct = aggregator.distinct(list, listdeduplicator);
 
         Assertions.assertEquals(4, distinct);
     }
