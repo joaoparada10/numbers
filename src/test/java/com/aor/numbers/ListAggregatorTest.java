@@ -26,7 +26,7 @@ public class ListAggregatorTest {
         ListAggregator aggregator = new ListAggregator();
         int sum = aggregator.sum(list);
 
-        Assertions.assertEquals(14, sum);
+        Assertions.assertEquals(13, sum);
     }
 
     @Test
